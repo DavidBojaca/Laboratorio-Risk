@@ -9,6 +9,7 @@ import control.Controller;
 public class Window extends JFrame{
     private Controller control;
     private Panel panel = new Panel();
+    private int i;
 
     public Window(){
         this.setBounds(10, 10, 1500, 800);
