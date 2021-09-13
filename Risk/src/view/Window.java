@@ -10,18 +10,16 @@ import control.Controller;
 public class Window extends JFrame{
     private Controller control;
     private Panel panel = new Panel();
-<<<<<<< HEAD
+
     private int i;
-=======
+
     private JButton play = new JButton("Play");
->>>>>>> jesus
 
     public Window(){
         this.setBounds(10, 10, 1500, 800);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLayout(null);
         this.initComponents();
-        this.setExtendedState(6);
         this.setVisible(true);
     }
 
