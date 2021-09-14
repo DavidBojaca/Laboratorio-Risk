@@ -19,7 +19,7 @@ public class Funtions {
     
         for (int i = 0; i < 49; i++) {
             riskMap.getBlueTeam().add(new Soldier("b"));
-            riskMap.getRedTeam().add(new Soldier("r"));
+            riskMap.getRedTeam().add(new Soldier("a"));
         }
     }
     
@@ -118,28 +118,65 @@ public class Funtions {
     public void soldierDistribution() {
         int blueQuantity= riskMap.getBlueTeam().size();
         int redQuantity= riskMap.getRedTeam().size();
+        int blueCountries =0;
+        int redCountries = 0;
         Random rmd= new Random();
-        do{
+        //rmd.nextInt(riskMap.getBlueTeam().size()/(riskMap.getCountriesList().size()/2)
+        do{    
             for (int i = 0; i < riskMap.getCountriesList().size(); i++) {
-                int soldierNum= rmd.nextInt(2);
+
+                int soldierNum= rmd.nextInt(2); 
 
 
-                if(soldierNum == 1 || redQuantity==0){
-                   for (int j = 0; j < rmd.nextInt(riskMap.getBlueTeam().size()/(riskMap.getCountriesList().size()/2) ) ; j++) {
+                if (blueCountries<=6 && soldierNum ==1) {
+                    for (int j = 0; j < 8  ; j++) {
                         riskMap.getCountriesList().get(i).getBlueSoldiersList().add(new Soldier("b"));
                         blueQuantity = blueQuantity-1;
-                   }
-                   
+                    }
+                    blueCountries++;
                 }
 
-                if (soldierNum!=1 || blueQuantity==0) {
-                    for (int j = 0; j < rmd.nextInt(riskMap.getRedTeam().size()/(riskMap.getCountriesList().size()/2) ) ; j++) {
+                if (redCountries<=6 &&soldierNum==0) {
+                    for (int j = 0; j < 8 ; j++) {
                         riskMap.getCountriesList().get(i).getRedSoldiersList().add(new Soldier("a"));
                         redQuantity = redQuantity-1;
-                   }
-                   
+                    }
+                    redCountries++;
                 }
-                if (riskMap.getCountriesList().get(i+1)== null) {
+            }
+        }while(redQuantity!=0&& blueQuantity!=0);
+
+
+
+
+
+
+
+                 
+              
+
+                /*if (riskMap.getCountriesList().get(i)== riskMap.getCountriesList().get(riskMap.getCountriesList().size()-1)) {
+                     int recidueBlue = blueQuantity;
+                     int recidueRed= redQuantity;
+ 
+                     if (soldierNum==1 || redQuantity==0) {
+                         for (int j = 0; j < recidueBlue ; j++) {
+                             riskMap.getCountriesList().get(i).getBlueSoldiersList().add(new Soldier("b"));
+                             blueQuantity = blueQuantity-1;
+                        }
+                     }
+ 
+                     if (soldierNum!=1 || blueQuantity==0) {
+                         for (int j = 0; j < recidueRed ; j++) {
+                             riskMap.getCountriesList().get(i).getRedSoldiersList().add(new Soldier("a"));
+                             redQuantity = redQuantity-1;
+                        }
+                     }
+
+
+               
+                }
+                if (riskMap.getCountriesList().get(i)== riskMap.getCountriesList().get(riskMap.getCountriesList().size())) {
                     int recidueBlue = blueQuantity;
                     int recidueRed= redQuantity;
 
@@ -157,9 +194,10 @@ public class Funtions {
                        }
                     }
                 }
-            }
 
-        }while(blueQuantity!=0 && redQuantity !=0);       
+            }*/
+        
+        
     }
 
     public void attack(Country c1, Country c2 ) {        
