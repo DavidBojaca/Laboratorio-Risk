@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class Map {
     private ArrayList<Country> countriesList;
-    private ArrayList<Soldier> blueTeam;
-    private ArrayList<Soldier> redTeam;
+    private int redSoldiers;
+    private int blueSoldiers;
+    
 
     
     public Map(ArrayList<Country> countriesList) {
-        this.countriesList = countriesList;
-        blueTeam = new  ArrayList<>();
-        redTeam= new ArrayList<>();
+        this.countriesList =countriesList;
+        
     }
 
 
@@ -23,45 +23,52 @@ public class Map {
     }
 
 
+
     /**
      * @param countriesList the countriesList to set
      */
-    public void setCountriesList(ArrayList<Country> countries) {
-        this.countriesList = countries;
-    }    
-
-
-    /**
-     * @return the blueTeam
-     */
-    public ArrayList<Soldier> getBlueTeam() {
-        return blueTeam;
+    public void setCountriesList(ArrayList<Country> countriesList) {
+        this.countriesList = countriesList;
     }
 
 
+
     /**
-     * @param blueTeam the blueTeam to set
+     * @return the redSoldiers
      */
-    public void setBlueTeam(ArrayList<Soldier> blueTeam) {
-        this.blueTeam = blueTeam;
+    public int getRedSoldiers() {
+        return redSoldiers;
     }
 
 
+
     /**
-     * @return the redTeam
+     * @param redSoldiers the redSoldiers to set
      */
-    public ArrayList<Soldier> getRedTeam() {
-        return redTeam;
+    public void setRedSoldiers(int redSoldiers) {
+        this.redSoldiers = redSoldiers;
     }
 
 
+
     /**
-     * @param redTeam the redTeam to set
+     * @return the blueSoldiers
      */
-    public void setRedTeam(ArrayList<Soldier> redTeam) {
-        this.redTeam = redTeam;
+    public int getBlueSoldiers() {
+        return blueSoldiers;
     }
 
+
+
+    /**
+     * @param blueSoldiers the blueSoldiers to set
+     */
+    public void setBlueSoldiers(int blueSoldiers) {
+        this.blueSoldiers = blueSoldiers;
+    }
+    
+
+    
 
 
     

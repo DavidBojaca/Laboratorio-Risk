@@ -25,7 +25,7 @@ public class Panel extends JPanel{
         ImageIcon background = new ImageIcon(getClass().getResource("../pics/mapa.jpeg"));
         graph.clearRect(0, 0, 1200, 700);
         graph.drawImage(background.getImage(), 0, 0, getWidth(), getHeight(), this);
-
+        System.out.println(" cantidad :" + countriesList.size());
         if (!countriesList.isEmpty()) {
             drawMap(graph);
         }
@@ -55,19 +55,26 @@ public class Panel extends JPanel{
         g2d.drawLine(965, 175, 665, 205);
 
         for (int i = 0; i < countriesList.size(); i++) {
+<<<<<<< HEAD
             g2d.drawOval(countriesList.get(i).getX()-1, countriesList.get(i).getY()-1, 32, 32);
             if (!countriesList.get(i).getBlueSoldiersList().isEmpty()) {
                 g.setColor(Color.BLUE);
                 g.fillOval(countriesList.get(i).getX(), countriesList.get(i).getY(), 30, 30);
                 
                 String cantidadA = countriesList.get(i).getBlueSoldiersList().size() + "";
+=======
+            if (countriesList.get(i).getTeam().equals("b")) {
+                g.setColor(Color.BLUE);
+                g.fillOval(countriesList.get(i).getX(), countriesList.get(i).getY(), 30, 30);
+                String cantidadA = countriesList.get(i).getSoldiers()+ "";
+>>>>>>> David#3
                 g.drawString(cantidadA, countriesList.get(i).getX(), countriesList.get(i).getY());
             }
 
-            if (!countriesList.get(i).getRedSoldiersList().isEmpty()) {
+            if (countriesList.get(i).getTeam().equals("r")) {
                 g.setColor(Color.RED);
                 g.fillOval(countriesList.get(i).getX(), countriesList.get(i).getY(), 30, 30);
-                String cantidadR = countriesList.get(i).getRedSoldiersList().size() + "";
+                String cantidadR = countriesList.get(i).getSoldiers() + "";
                 g.drawString(cantidadR, countriesList.get(i).getX(), countriesList.get(i).getY());
             }
             
