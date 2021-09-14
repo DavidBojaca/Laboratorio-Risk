@@ -1,14 +1,26 @@
 package control;
 
-import model.Operations;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import model.Funtions;
 import view.Window;
 
-public class Controller {
-    private Operations model;
+public class Controller implements ActionListener {
+    private Funtions model;
     private Window view;
 
-    public Controller(Operations m, Window v){
+    public Controller(Funtions m, Window v){
         this.model = m;
         this.view = v;
+        this.view.setController(this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent action) {
+        if (action.getActionCommand().equals("Play")) {
+            model.countriesCreation();
+        }
+        
     }
 }

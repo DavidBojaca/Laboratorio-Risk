@@ -3,13 +3,13 @@ package model;
 import java.util.ArrayList;
 
 public class Map {
-    private ArrayList<Country> CountriesList;
+    private ArrayList<Country> countriesList;
     private ArrayList<Soldier> blueTeam;
     private ArrayList<Soldier> redTeam;
 
     
-    public Map() {
-        CountriesList = new ArrayList<>();
+    public Map(ArrayList<Country> countriesList) {
+        this.countriesList = countriesList;
         blueTeam = new  ArrayList<>();
         redTeam= new ArrayList<>();
     }
@@ -19,16 +19,16 @@ public class Map {
      * @return the countriesList
      */
     public ArrayList<Country> getCountriesList() {
-        return CountriesList;
+        return countriesList;
     }
 
 
     /**
      * @param countriesList the countriesList to set
      */
-    public void setCountriesList(ArrayList<Country> countriesList) {
-        CountriesList = countriesList;
-    }
+    public void setCountriesList(ArrayList<Country> countries) {
+        this.countriesList = countries;
+    }    
 
 
     /**
