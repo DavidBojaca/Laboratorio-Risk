@@ -287,7 +287,9 @@ public class Funtions {
                 }
             }
             else{
-                
+                setQuantityMove(0);
+                soldierMove(loser, winner);
+
             }
             
         }
@@ -304,6 +306,8 @@ public class Funtions {
 
             }
             else{
+                setQuantityMove(0);
+                soldierMove(loser, winner);
 
             }
         }
@@ -327,7 +331,7 @@ public class Funtions {
 
         for (int i = 0; i <machineCountries.size() ; i++) {
             for (int j = 0; j < machineCountries.get(i).getNeighbortList().size(); j++) {
-                if (machineCountries.get(i).getNeighbortList().get(j).getRedSoldiersList().isEmpty()&& machineCountries.get(i).getState()== false) {
+                if (machineCountries.get(i).getNeighbortList().get(j).getRedSoldiersList().isEmpty()&& machineCountries.get(i).isState()== false) {
                     machinePosibility.add(machineCountries.get(i));
                     machineCountries.get(i).setState(true);
                 }
