@@ -5,29 +5,20 @@ import java.util.ArrayList;
 public class Country {
     private String id;
     private boolean State;
-    private ArrayList<Soldier> redSoldiersList;
-    private ArrayList<Soldier> blueSoldiersList;
+    private int soldiers;
+    private String team;
     private ArrayList<Country> NeighbortList;
-    
-
-
     private int x;
     private int y;
     /**
-     * 
-     * @param state
-     * 
+     * @param id
+     * @param neighbortList
      */
     public Country(String id, int x, int y) {
-
-        this.State = false;
-        this.id= id;
-        this.redSoldiersList= new ArrayList<>();
-        this.blueSoldiersList= new ArrayList<>();
-        this.NeighbortList = new ArrayList<>();
+        this.id = id;
+        NeighbortList = new ArrayList<>();
         this.x= x;
         this.y=y;
-
     }
     /**
      * @return the id
@@ -54,28 +45,28 @@ public class Country {
         State = state;
     }
     /**
-     * @return the redSoldiersList
+     * @return the soldiers
      */
-    public ArrayList<Soldier> getRedSoldiersList() {
-        return redSoldiersList;
+    public int getSoldiers() {
+        return soldiers;
     }
     /**
-     * @param redSoldiersList the redSoldiersList to set
+     * @param soldiers the soldiers to set
      */
-    public void setRedSoldiersList(ArrayList<Soldier> redSoldiersList) {
-        this.redSoldiersList = redSoldiersList;
+    public void setSoldiers(int soldiers) {
+        this.soldiers = soldiers;
     }
     /**
-     * @return the blueSoldiersList
+     * @return the team
      */
-    public ArrayList<Soldier> getBlueSoldiersList() {
-        return blueSoldiersList;
+    public String getTeam() {
+        return team;
     }
     /**
-     * @param blueSoldiersList the blueSoldiersList to set
+     * @param team the team to set
      */
-    public void setBlueSoldiersList(ArrayList<Soldier> blueSoldiersList) {
-        this.blueSoldiersList = blueSoldiersList;
+    public void setTeam(String team) {
+        this.team = team;
     }
     /**
      * @return the neighbortList
@@ -113,16 +104,9 @@ public class Country {
     public void setY(int y) {
         this.y = y;
     }
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    
-    @Override
-    public String toString() {
-        return "Country [NeighbortList=" + NeighbortList + ", State=" + State + ", blueSoldiersList=" + blueSoldiersList
-                + ", id=" + id + ", redSoldiersList=" + redSoldiersList + ", x=" + x + ", y=" + y + "]";
-    }
 
+
+   
     
     
     
