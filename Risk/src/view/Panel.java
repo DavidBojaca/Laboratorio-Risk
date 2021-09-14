@@ -8,6 +8,8 @@ import model.Map;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.BasicStroke;
 import java.util.ArrayList;
 
 
@@ -30,10 +32,34 @@ public class Panel extends JPanel{
     }
 
     public void drawMap(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        BasicStroke gross = new BasicStroke(2);
+        g2d.setStroke(gross);
+        g2d.setColor(new Color(255,128,0));
+        g2d.drawLine(335, 425, 425, 465);
+        g2d.drawLine(335, 425, 190, 195);
+        g2d.drawLine(335, 425, 360, 565);
+        g2d.drawLine(335, 425, 665, 205);
+        g2d.drawLine(190, 195, 295, 275);
+        g2d.drawLine(295, 275, 665, 205);
+        g2d.drawLine(665, 205, 575, 355);
+        g2d.drawLine(425, 465, 575, 355);
+        g2d.drawLine(645, 505, 575, 355);
+        g2d.drawLine(645, 505, 360, 565);
+        g2d.drawLine(665, 405, 575, 355);
+        g2d.drawLine(665, 405, 845, 285);
+        g2d.drawLine(665, 405, 985, 515);
+        g2d.drawLine(985, 515, 845, 285);
+        g2d.drawLine(985, 515, 645, 505);
+        g2d.drawLine(965, 175, 845, 285);
+        g2d.drawLine(965, 175, 665, 205);
+
         for (int i = 0; i < countriesList.size(); i++) {
+            g2d.drawOval(countriesList.get(i).getX()-1, countriesList.get(i).getY()-1, 32, 32);
             if (!countriesList.get(i).getBlueSoldiersList().isEmpty()) {
                 g.setColor(Color.BLUE);
                 g.fillOval(countriesList.get(i).getX(), countriesList.get(i).getY(), 30, 30);
+                
                 String cantidadA = countriesList.get(i).getBlueSoldiersList().size() + "";
                 g.drawString(cantidadA, countriesList.get(i).getX(), countriesList.get(i).getY());
             }
@@ -47,15 +73,7 @@ public class Panel extends JPanel{
             
             g.setColor(Color.BLACK);
             g.drawString(countriesList.get(i).getId(), countriesList.get(i).getX()+10, countriesList.get(i).getY()+18);
-
         }
-        g.setColor(Color.BLACK);
-        g.drawLine(335, 425, 425, 465);
-        g.drawLine(335, 425, 190, 195);
-        g.drawLine(335, 425, 360, 565);
-        g.drawLine(335, 425, 665, 205);
-        
-
         
         /*
         Country C = new Country("C", 175, 180);

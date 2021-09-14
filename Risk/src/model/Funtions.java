@@ -118,10 +118,10 @@ public class Funtions {
     public void soldierDistribution() {
         int blueQuantity= riskMap.getBlueTeam().size();
         int redQuantity= riskMap.getRedTeam().size();
+        String ciudades = "ABCDEFGHIJKL";
         Random rmd= new Random();
 
             for (int i = 0; i < riskMap.getCountriesList().size(); i++) {
-
                if (redQuantity > 0 && blueQuantity > 0) {
                     int soldierNum= rmd.nextInt(2); 
                 
