@@ -8,8 +8,8 @@ public class Map {
     private ArrayList<Soldier> redTeam;
 
     
-    public Map() {
-        countriesList = new ArrayList<>();
+    public Map(ArrayList<Country> countriesList) {
+        this.countriesList = countriesList;
         blueTeam = new  ArrayList<>();
         redTeam= new ArrayList<>();
     }
@@ -26,7 +26,9 @@ public class Map {
     /**
      * @param countriesList the countriesList to set
      */
-    
+    public void setCountriesList(ArrayList<Country> countries) {
+        this.countriesList = countries;
+    }    
 
 
     /**
@@ -34,11 +36,6 @@ public class Map {
      */
     public ArrayList<Soldier> getBlueTeam() {
         return blueTeam;
-    }
-
-
-    public void setCountriesList(ArrayList<Country> countriesList) {
-        this.countriesList = countriesList;
     }
 
 
