@@ -3,15 +3,23 @@ package model;
 import java.util.ArrayList;
 import java.util.Random;
 
+import view.Window;
+
 public class Funtions {
     private Map riskMap;
     private int quantityMove;
+    private ArrayList<Country> countriesList = new ArrayList<>();
+    private Window window = null;
 
+    public Funtions(Window w){
+        this.window = w;
+    }
+
+    
 
     public void setQuantityMove(int quantity){
         this.quantityMove= quantity;
     }
-
 
     // funcion para crear los soldados que estaran en el juego
 
@@ -25,18 +33,18 @@ public class Funtions {
     
     public void countriesCreation() {
 
-        Country A = new Country("A",0,0);
-        Country B = new Country("B",0,10);
-        Country C = new Country("C",0,20);
-        Country D = new Country("D",0,30);
-        Country E = new Country("E",0,40);
-        Country F = new Country("F",0,50);
-        Country G = new Country("G",0,60);
-        Country H = new Country("H",0,70);
-        Country I = new Country("I",0,80);
-        Country J = new Country("J",0,90);
-        Country K = new Country("K",0,100);
-        Country L = new Country("L",0,110);
+        Country A = new Country("A", 175, 180);
+        Country B = new Country("B", 250, 280);
+        Country C = new Country("C", 320, 410);
+        Country D = new Country("D", 410, 450);
+        Country E = new Country("E", 345, 550);
+        Country F = new Country("F", 650, 190);
+        Country G = new Country("G", 950, 160);
+        Country H = new Country("H", 830, 270);
+        Country I = new Country("I", 560, 340);
+        Country J = new Country("J", 650, 390);
+        Country K = new Country("K", 630, 490);
+        Country L = new Country("L", 970, 500);
 
 
         A.getNeighbortList().add(C);
@@ -96,24 +104,27 @@ public class Funtions {
         L.getNeighbortList().add(J);
         L.getNeighbortList().add(H);
 
-
-
-        riskMap.getCountriesList().add(A);
-        riskMap.getCountriesList().add(B);
-        riskMap.getCountriesList().add(C);
-        riskMap.getCountriesList().add(D);
-        riskMap.getCountriesList().add(E);
-        riskMap.getCountriesList().add(F);
-        riskMap.getCountriesList().add(G);
-        riskMap.getCountriesList().add(H);
-        riskMap.getCountriesList().add(I);
-        riskMap.getCountriesList().add(J);
-        riskMap.getCountriesList().add(K);
-        riskMap.getCountriesList().add(L);
-        
+        countriesList.add(A);
+        countriesList.add(B);
+        countriesList.add(C);
+        countriesList.add(D);
+        countriesList.add(E);
+        countriesList.add(F);
+        countriesList.add(G);
+        countriesList.add(H);
+        countriesList.add(I);
+        countriesList.add(J);
+        countriesList.add(K);
+        countriesList.add(L);
+        System.out.println(countriesList.size());
+        riskMap.getCountriesList().addAll(countriesList);
+        updateUI();
     }
 
-
+    public void updateUI() {
+        window.getPanel().getCountriesList().addAll(countriesList);
+        window.repaint();
+    }
 
     public void soldierDistribution() {
         int blueQuantity= riskMap.getBlueTeam().size();

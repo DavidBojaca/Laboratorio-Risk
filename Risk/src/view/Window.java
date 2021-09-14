@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import control.Controller;
+import utils.Utils;
 
 public class Window extends JFrame{
     private Controller control;
@@ -33,6 +34,8 @@ public class Window extends JFrame{
 
     public void setController(Controller c){
         this.control = c;
+        this.play.setActionCommand(Utils.PLAY);
+        this.play.addActionListener(this.control);
     }
 
     public Panel getPanel(){
