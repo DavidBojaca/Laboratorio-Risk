@@ -96,7 +96,7 @@ public class Funtions {
         System.out.println(countriesList.size());
         riskMap = new Map(countriesList);
         soldiersCreation();
-        // soldierDistribution();
+        soldierDistribution();
         updateUI();
     }
 
@@ -121,13 +121,13 @@ public class Funtions {
 
             if (i < 6) {
                 riskMap.getCountriesList().get(i).setTeam("b");
-                riskMap.getCountriesList().get(i).setSoldiers(1);
+                riskMap.getCountriesList().get(i).setSoldiers(8);
                 blueCountries++;
             }
 
             if (i >= 6) {
                 riskMap.getCountriesList().get(i).setTeam("r");
-                riskMap.getCountriesList().get(i).setSoldiers(1);
+                riskMap.getCountriesList().get(i).setSoldiers(8);
                 redCountries++;
             }
         }
