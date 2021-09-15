@@ -11,17 +11,15 @@ public class Funtions {
     private int quantityMove;
     private Window window = null;
 
-    public Funtions(Window w){
+    public Funtions(Window w) {
         this.window = w;
     }
-        
 
-
-    public void setQuantityMove(int quantity){
-        this.quantityMove= quantity;
+    public void setQuantityMove(int quantity) {
+        this.quantityMove = quantity;
 
     }
-    
+
     public void countriesCreation() {
 
         Country C = new Country("C", 175, 180);
@@ -98,7 +96,7 @@ public class Funtions {
         System.out.println(countriesList.size());
         riskMap = new Map(countriesList);
         soldiersCreation();
-        //soldierDistribution();
+        // soldierDistribution();
         updateUI();
     }
 
@@ -107,8 +105,6 @@ public class Funtions {
         window.repaint();
     }
 
-    
-
     public void soldiersCreation() {
         riskMap.setRedSoldiers(48);
         riskMap.setBlueSoldiers(48);
@@ -116,257 +112,155 @@ public class Funtions {
 
     public void soldierDistribution() {
         int blueCountries = 0;
-        int redCountries=0;
+        int redCountries = 0;
         int rmd;
 
         for (int i = 0; i < riskMap.getCountriesList().size(); i++) {
             rmd = Utils.RANDOM.nextInt(2);
 
-            if (rmd==0 && blueCountries <6) {
+            if (i < 6) {
                 riskMap.getCountriesList().get(i).setTeam("b");
                 riskMap.getCountriesList().get(i).setSoldiers(8);
                 blueCountries++;
             }
 
-            if(rmd==1 && redCountries <6){
+            if (i >= 6) {
                 riskMap.getCountriesList().get(i).setTeam("r");
                 riskMap.getCountriesList().get(i).setSoldiers(8);
                 redCountries++;
             }
         }
-
     }
 
-       
-
-
-    
-
-    /*public void attack(Country c1, Country c2 ) {        
-        int battleSoldiers = c1.getBlueSoldiersList().size()+ c2.getBlueSoldiersList().size()+
-        c1.getRedSoldiersList().size()+c2.getRedSoldiersList().size();
+    public void attack(Country c1, Country c2) {
+        int battleSoldiers = c1.getSoldiers() + c2.getSoldiers();
+        int redGlobal = riskMap.getRedSoldiers();
+        int blueGlobal = riskMap.getBlueSoldiers();
 
         Random luck = new Random();
-        
-        // si el equipo rojo tiene menos
-        if (c1.getBlueSoldiersList().size()> c2.getRedSoldiersList().size()&& c1.getBlueSoldiersList().isEmpty() && c2.getRedSoldiersList().isEmpty()) {
-            if (luck.nextInt(c1.getBlueSoldiersList().size()+ c2.getRedSoldiersList().size())>c2.getRedSoldiersList().size()) {
 
-                for (int i = 0; i <c2.getRedSoldiersList().size() ; i++) {
-                    riskMap.getRedTeam().remove(i);
+        // si c1 tiene mas soldados que c2
+        if (c1.getSoldiers() > c2.getSoldiers()) {
+            if (luck.nextInt(battleSoldiers) > c2.getSoldiers()) {
+
+                for (int i = 0; i < c2.getSoldiers(); i++) {
+                    if (c2.getTeam().equals("r")) {
+                        redGlobal = redGlobal - 1;
+                    } else {
+                        blueGlobal = blueGlobal - 1;
+                    }
                 }
+                c2.setSoldiers(0);
+                soldierMove(c2, c1);
 
-                c2.getRedSoldiersList().clear();
-                
-                soldierMove(c2,c1 );
-                
-                       
-            }else{
-
-                for (int i = 0; i <c1.getBlueSoldiersList().size() ; i++) {
-                    riskMap.getBlueTeam().remove(i);
+            } else {
+                for (int i = 0; i < c1.getSoldiers(); i++) {
+                    if (c1.getTeam().equals("r")) {
+                        redGlobal = redGlobal - 1;
+                    } else {
+                        blueGlobal = blueGlobal - 1;
+                    }
                 }
-
-                c1.getBlueSoldiersList().clear();
-
-                soldierMove(c1,c2 );
-                
+                c1.setSoldiers(0);
+                soldierMove(c1, c2);
             }
         }
 
+        // si c2 tiene más soldados que c1
+        if (c2.getSoldiers() > c1.getSoldiers()) {
+            if (luck.nextInt(battleSoldiers) > c1.getSoldiers()) {
 
-        //si el equipo azul tiene menos 
-        if (c1.getBlueSoldiersList().size()<c2.getRedSoldiersList().size()&& c1.getBlueSoldiersList().isEmpty() && c2.getRedSoldiersList().isEmpty()) {
-
-            if ( luck.nextInt(c1.getBlueSoldiersList().size()+ c2.getRedSoldiersList().size())> c1.getBlueSoldiersList().size()) {
-                
-                for (int i = 0; i <c1.getBlueSoldiersList().size() ; i++) {
-                    riskMap.getBlueTeam().remove(i);
+                for (int i = 0; i < c1.getSoldiers(); i++) {
+                    if (c1.getTeam().equals("r")) {
+                        redGlobal = redGlobal - 1;
+                    } else {
+                        blueGlobal = blueGlobal - 1;
+                    }
                 }
+                c1.setSoldiers(0);
+                soldierMove(c1, c2);
 
-                c1.getBlueSoldiersList().clear();
-
-                soldierMove(c1,c2 );
-                   
-
-            }else{
-                for (int i = 0; i <c2.getRedSoldiersList().size() ; i++) {
-                    riskMap.getRedTeam().remove(i);
+            } else {
+                for (int i = 0; i < c2.getSoldiers(); i++) {
+                    if (c2.getTeam().equals("r")) {
+                        redGlobal = redGlobal - 1;
+                    } else {
+                        blueGlobal = blueGlobal - 1;
+                    }
                 }
-
-                c2.getRedSoldiersList().clear();
-
-                soldierMove(c2,c1 );
-               
+                c2.setSoldiers(0);
+                soldierMove(c2, c1);
             }
         }
-
-        // si el equipo rojo tiene menos
-        if (c1.getRedSoldiersList().size()> c2.getBlueSoldiersList().size()&& c1.getRedSoldiersList().isEmpty()&& c2.getBlueSoldiersList().isEmpty()) {
-
-            if (luck.nextInt(c1.getRedSoldiersList().size()+c2.getBlueSoldiersList().size())>c2.getBlueSoldiersList().size() ) {
-
-                for (int i = 0; i <c2.getBlueSoldiersList().size() ; i++) {
-                    riskMap.getBlueTeam().remove(i);
-                }
-
-                c2.getBlueSoldiersList().clear();
-
-                soldierMove(c2,c1 );
-                       
-            }else{
-
-                for (int i = 0; i <c1.getRedSoldiersList().size() ; i++) {
-                    riskMap.getRedTeam().remove(i);
-                }
-
-                c1.getRedSoldiersList().clear();
-
-                soldierMove(c1,c2 );
-                
-            }
-        }
-
-        //si el equipo azul tiene menos 
-        if (c1.getRedSoldiersList().size()< c2.getBlueSoldiersList().size()&& c1.getRedSoldiersList().isEmpty()&& c2.getBlueSoldiersList().isEmpty()) {
-
-            if (luck.nextInt(c1.getRedSoldiersList().size()+c2.getBlueSoldiersList().size()) > c1.getRedSoldiersList().size() ) {
-                 
-                for (int i = 0; i <c1.getRedSoldiersList().size() ; i++) {
-                    riskMap.getRedTeam().remove(i);
-                }
-
-                c1.getRedSoldiersList().clear();
-
-                soldierMove(c1,c2 );
-                
-
-            }else{
-                for (int i = 0; i <c2.getBlueSoldiersList().size() ; i++) {
-                    riskMap.getBlueTeam().remove(i);
-                }
-
-                c2.getBlueSoldiersList().clear();
-                    
-                soldierMove(c2,c1 );
-               
-            }
-        }
-
-       
     }
 
     public void soldierMove(Country loser, Country winner) {
 
-        if (winner.getBlueSoldiersList().isEmpty()) {
-
-            if(quantityMove<=winner.getBlueSoldiersList().size()-1){
-                for (int i = 0; i <quantityMove; i++) {
-                    loser.getBlueSoldiersList().add(new Soldier("b"));
-                    winner.getBlueSoldiersList().remove(i);
-                }
-            }
-            else{
-                setQuantityMove(0);
-                soldierMove(loser, winner);
-
-            }
-            
+        if (quantityMove <= winner.getSoldiers() - 1) {
+            loser.setTeam(winner.getTeam());
+            loser.setSoldiers(quantityMove);
+            winner.setSoldiers(winner.getSoldiers() - quantityMove);
+        } else {
+            setQuantityMove(0);
+            soldierMove(loser, winner);
         }
-
-
-
-        if (winner.getRedSoldiersList().isEmpty()) {
-
-            if(quantityMove<=winner.getRedSoldiersList().size()-1){
-                for (int i = 0; i <quantityMove; i++) {
-                    loser.getRedSoldiersList().add(new Soldier("r"));
-                    winner.getRedSoldiersList().remove(i);
-                }
-
-            }
-            else{
-                setQuantityMove(0);
-                soldierMove(loser, winner);
-
-            }
-        }
-    
     }
 
-
-
-    public void machine(){
-        Random rmdMachine= new Random();
-        ArrayList<Country> machineCountries= new ArrayList<>();
+    public void machine() {
+        Random rmdMachine = new Random();
+        ArrayList<Country> machineCountries = new ArrayList<>();
         ArrayList<Country> machinePosibility = new ArrayList<>();
-        //ArrayList<Country> playerCountries= new ArrayList<>();
 
-        // iteracion para llenar la lista de machineCountries con los páises que tienen soldados azules
+        // iteracion para llenar la lista de machineCountries con los páises que tienen
+        // soldados azules
         for (int i = 0; i < riskMap.getCountriesList().size(); i++) {
-            if (riskMap.getCountriesList().get(i).getBlueSoldiersList().isEmpty()) {
+            if (riskMap.getCountriesList().get(i).getTeam().equals("b")) {
                 machineCountries.add(riskMap.getCountriesList().get(i));
             }
         }
 
-        for (int i = 0; i <machineCountries.size() ; i++) {
+        for (int i = 0; i < machineCountries.size(); i++) {
             for (int j = 0; j < machineCountries.get(i).getNeighbortList().size(); j++) {
-                if (machineCountries.get(i).getNeighbortList().get(j).getRedSoldiersList().isEmpty()&& machineCountries.get(i).isState()== false) {
+                if (machineCountries.get(i).getNeighbortList().get(j).getTeam().equals("r")
+                        && machineCountries.get(i).isState() == false) {
                     machinePosibility.add(machineCountries.get(i));
                     machineCountries.get(i).setState(true);
                 }
             }
-         }
-
-        
-        Country mostSoldiers = null;
-
-        mostSoldiers= machinePosibility.get(0);
-
-        for (int i = 0; i < machinePosibility.size(); i++) {
-            if (machinePosibility.get(i).getBlueSoldiersList().size()>mostSoldiers.getBlueSoldiersList().size()) {
-                mostSoldiers = machinePosibility.get(i);
-            }
-                
         }
 
-        //mostSoldiers= machinePosibility.stream().filter(p->p.getBlueSoldiersList()).max((s1,s2)->Integer.compare(s1, s2)).map(c-> c);
-            
+        Country mostSoldiers = null;
+
+        mostSoldiers = machinePosibility.get(0);
+
+        for (int i = 0; i < machinePosibility.size(); i++) {
+            if (machinePosibility.get(i).getSoldiers() > mostSoldiers.getSoldiers()) {
+                mostSoldiers = machinePosibility.get(i);
+            }
+
+        }
+
         for (int i = 0; i < mostSoldiers.getNeighbortList().size(); i++) {
-            if(mostSoldiers.getNeighbortList().get(i).getRedSoldiersList().isEmpty()){
-                setQuantityMove(rmdMachine.nextInt(mostSoldiers.getBlueSoldiersList().size()-1));
+            if (mostSoldiers.getNeighbortList().get(i).getSoldiers() != 0) {
+                setQuantityMove(rmdMachine.nextInt(mostSoldiers.getSoldiers() - 1) + 1);
                 attack(mostSoldiers, mostSoldiers.getNeighbortList().get(i));
-                
+
                 break;
             }
         }
-
     }
 
     public void playerTurn(Country c1, Country c2, int quantity) {
         setQuantityMove(quantity);
         attack(c1, c2);
-        
     }
 
     public void machineTurn() {
         machine();
-
     }
 
-    public void stardGame(){
+    public void stardGame() {
         soldiersCreation();
         soldierDistribution();
-    }*/
-    
-
-
-
-
-
-
-
-
-
-    
+    }
 }
