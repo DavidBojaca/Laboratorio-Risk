@@ -115,20 +115,49 @@ public class Funtions {
         int redCountries = 0;
         int rmd;
 
-
         for (int i = 0; i < riskMap.getCountriesList().size(); i++) {
-            rmd = Utils.RANDOM.nextInt(2);
-
-            if (i < 6) {
-                riskMap.getCountriesList().get(i).setTeam("b");
-                riskMap.getCountriesList().get(i).setSoldiers(8);
-                blueCountries++;
+            while (riskMap.getCountriesList().get(i).getTeam() == null) {
+                rmd = Utils.RANDOM.nextInt(2);
+                if (blueCountries < 6 && rmd == 0) {
+                    riskMap.getCountriesList().get(i).setTeam("b");
+                    riskMap.getCountriesList().get(i).setSoldiers(1);
+                    blueCountries++;
+                }
+                if (redCountries < 6 && rmd == 1) {
+                    riskMap.getCountriesList().get(i).setTeam("r");
+                    riskMap.getCountriesList().get(i).setSoldiers(1);
+                    redCountries++;
+                }
             }
-
-            if (i >= 6) {
-                riskMap.getCountriesList().get(i).setTeam("r");
-                riskMap.getCountriesList().get(i).setSoldiers(8);
-                redCountries++;
+        }
+        int rmdBlue, rmdRed, redSoldiers = 6, blueSoldiers = 6;
+        for (int i = 0; i < riskMap.getCountriesList().size(); i++) {
+            if (riskMap.getCountriesList().get(i).getTeam().equals("b") && blueSoldiers < 48) {
+                rmdBlue = Utils.RANDOM.nextInt((30 -10)+1);
+                if (rmdBlue == 0) {
+                    rmdBlue += 1;
+                }
+                riskMap.getCountriesList().get(i).setSoldiers(rmdBlue);
+                blueSoldiers += rmdBlue;
+                
+                if (blueSoldiers > 48) {
+                    riskMap.getCountriesList().get(i).setSoldiers(blueSoldiers - 48);
+                }
+                System.out.println("Azules: " + blueSoldiers);
+                
+            }
+            if (riskMap.getCountriesList().get(i).getTeam().equals("r") && redSoldiers < 48) {
+                rmdRed = Utils.RANDOM.nextInt((30 -10)+1);
+                if (rmdRed == 0) {
+                    rmdRed+= 1;
+                }
+                riskMap.getCountriesList().get(i).setSoldiers(rmdRed);
+                redSoldiers += rmdRed;
+                
+                if (redSoldiers > 48) {
+                    riskMap.getCountriesList().get(i).setSoldiers(redSoldiers - 48);
+                }
+                System.out.println("Red: " + redSoldiers);
             }
         }
     }
