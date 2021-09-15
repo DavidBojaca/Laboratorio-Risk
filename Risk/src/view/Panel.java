@@ -27,7 +27,25 @@ public class Panel extends JPanel{
         graph.drawImage(background.getImage(), 0, 0, getWidth(), getHeight(), this);
         System.out.println(" cantidad :" + countriesList.size());
         if (!countriesList.isEmpty()) {
-            drawMap(graph);
+            for (int i = 0; i < countriesList.size(); i++) {
+                System.out.println(countriesList.get(i).getTeam());
+                if (countriesList.get(i).getTeam().contains("b")) {
+                    graph.setColor(Color.BLUE);
+                    graph.fillOval(countriesList.get(i).getX(), countriesList.get(i).getY(), 30, 30);
+                    String cantidadA = countriesList.get(i).getSoldiers()+ "";
+                    graph.drawString(cantidadA, countriesList.get(i).getX(), countriesList.get(i).getY());
+                }
+    
+                if (countriesList.get(i).getTeam().contains("r")) {
+                    graph.setColor(Color.RED);
+                    graph.fillOval(countriesList.get(i).getX(), countriesList.get(i).getY(), 30, 30);
+                    String cantidadR = countriesList.get(i).getSoldiers() + "";
+                    graph.drawString(cantidadR, countriesList.get(i).getX(), countriesList.get(i).getY());
+                }
+                
+                graph.setColor(Color.BLACK);
+                graph.drawString(countriesList.get(i).getId(), countriesList.get(i).getX()+10, countriesList.get(i).getY()+18);
+            }
         }
     }
 
@@ -55,19 +73,10 @@ public class Panel extends JPanel{
         g2d.drawLine(965, 175, 665, 205);
 
         for (int i = 0; i < countriesList.size(); i++) {
-<<<<<<< HEAD
-            g2d.drawOval(countriesList.get(i).getX()-1, countriesList.get(i).getY()-1, 32, 32);
-            if (!countriesList.get(i).getBlueSoldiersList().isEmpty()) {
-                g.setColor(Color.BLUE);
-                g.fillOval(countriesList.get(i).getX(), countriesList.get(i).getY(), 30, 30);
-                
-                String cantidadA = countriesList.get(i).getBlueSoldiersList().size() + "";
-=======
             if (countriesList.get(i).getTeam().equals("b")) {
                 g.setColor(Color.BLUE);
                 g.fillOval(countriesList.get(i).getX(), countriesList.get(i).getY(), 30, 30);
                 String cantidadA = countriesList.get(i).getSoldiers()+ "";
->>>>>>> David#3
                 g.drawString(cantidadA, countriesList.get(i).getX(), countriesList.get(i).getY());
             }
 

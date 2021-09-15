@@ -115,7 +115,6 @@ public class Funtions {
     }
 
     public void soldierDistribution() {
-<<<<<<< HEAD
         int blueQuantity= riskMap.getBlueTeam().size();
         int redQuantity= riskMap.getRedTeam().size();
         String ciudades = "ABCDEFGHIJKL";
@@ -143,7 +142,7 @@ public class Funtions {
         int blueCountries = 0;
         int redCountries=0;
         int rmd;
->>>>>>> David#3
+
 
         for (int i = 0; i < riskMap.getCountriesList().size(); i++) {
             rmd = Utils.RANDOM.nextInt(2);
