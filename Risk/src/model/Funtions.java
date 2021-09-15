@@ -97,8 +97,8 @@ public class Funtions {
         countriesList.add(L);
         System.out.println(countriesList.size());
         riskMap = new Map(countriesList);
-        soldiersCreation();
-        //soldierDistribution();
+        //soldiersCreation();
+        soldierDistribution();
         updateUI();
     }
 
@@ -115,30 +115,6 @@ public class Funtions {
     }
 
     public void soldierDistribution() {
-        int blueQuantity= riskMap.getBlueTeam().size();
-        int redQuantity= riskMap.getRedTeam().size();
-        String ciudades = "ABCDEFGHIJKL";
-        Random rmd= new Random();
-
-            for (int i = 0; i < riskMap.getCountriesList().size(); i++) {
-               if (redQuantity > 0 && blueQuantity > 0) {
-                    int soldierNum= rmd.nextInt(2); 
-                
-                    if(soldierNum == 1){
-                        for (int j = 0; j < 8; j++) {
-                            riskMap.getCountriesList().get(i).getBlueSoldiersList().add(new Soldier("b"));
-                            blueQuantity = blueQuantity-1;
-                        }
-                    }
- 
-                    if (soldierNum ==0 ) {
-                        for (int j = 0; j < 8; j++) {
-                            riskMap.getCountriesList().get(i).getRedSoldiersList().add(new Soldier("r"));
-                            redQuantity = redQuantity-1;
-                        }
-                    }
-                }
-=======
         int blueCountries = 0;
         int redCountries=0;
         int rmd;
@@ -147,25 +123,20 @@ public class Funtions {
         for (int i = 0; i < riskMap.getCountriesList().size(); i++) {
             rmd = Utils.RANDOM.nextInt(2);
 
-            if (rmd==0 && blueCountries <6) {
+            if (i < 6) {
                 riskMap.getCountriesList().get(i).setTeam("b");
-                riskMap.getCountriesList().get(i).setSoldiers(8);
+                riskMap.getCountriesList().get(i).setSoldiers(1);
                 blueCountries++;
             }
 
-            if(rmd==1 && redCountries <6){
+            if(i >= 6){
                 riskMap.getCountriesList().get(i).setTeam("r");
-                riskMap.getCountriesList().get(i).setSoldiers(8);
+                riskMap.getCountriesList().get(i).setSoldiers(1);
                 redCountries++;
             }
         }
-
     }
 
-       
-
-
-    
 
     /*public void attack(Country c1, Country c2 ) {        
         int battleSoldiers = c1.getBlueSoldiersList().size()+ c2.getBlueSoldiersList().size()+

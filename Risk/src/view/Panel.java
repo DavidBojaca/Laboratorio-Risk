@@ -27,25 +27,7 @@ public class Panel extends JPanel{
         graph.drawImage(background.getImage(), 0, 0, getWidth(), getHeight(), this);
         System.out.println(" cantidad :" + countriesList.size());
         if (!countriesList.isEmpty()) {
-            for (int i = 0; i < countriesList.size(); i++) {
-                System.out.println(countriesList.get(i).getTeam());
-                if (countriesList.get(i).getTeam().contains("b")) {
-                    graph.setColor(Color.BLUE);
-                    graph.fillOval(countriesList.get(i).getX(), countriesList.get(i).getY(), 30, 30);
-                    String cantidadA = countriesList.get(i).getSoldiers()+ "";
-                    graph.drawString(cantidadA, countriesList.get(i).getX(), countriesList.get(i).getY());
-                }
-    
-                if (countriesList.get(i).getTeam().contains("r")) {
-                    graph.setColor(Color.RED);
-                    graph.fillOval(countriesList.get(i).getX(), countriesList.get(i).getY(), 30, 30);
-                    String cantidadR = countriesList.get(i).getSoldiers() + "";
-                    graph.drawString(cantidadR, countriesList.get(i).getX(), countriesList.get(i).getY());
-                }
-                
-                graph.setColor(Color.BLACK);
-                graph.drawString(countriesList.get(i).getId(), countriesList.get(i).getX()+10, countriesList.get(i).getY()+18);
-            }
+            drawMap(graph);
         }
     }
 
@@ -53,7 +35,7 @@ public class Panel extends JPanel{
         Graphics2D g2d = (Graphics2D) g;
         BasicStroke gross = new BasicStroke(2);
         g2d.setStroke(gross);
-        g2d.setColor(new Color(255,128,0));
+        g2d.setColor(new Color(150, 75, 0));
         g2d.drawLine(335, 425, 425, 465);
         g2d.drawLine(335, 425, 190, 195);
         g2d.drawLine(335, 425, 360, 565);
@@ -73,14 +55,16 @@ public class Panel extends JPanel{
         g2d.drawLine(965, 175, 665, 205);
 
         for (int i = 0; i < countriesList.size(); i++) {
-            if (countriesList.get(i).getTeam().equals("b")) {
+            g2d.setColor(new Color(150, 75, 0));
+            g2d.drawOval(countriesList.get(i).getX() - 1, countriesList.get(i).getY() - 1, 32, 32);
+            if (countriesList.get(i).getTeam() != null && countriesList.get(i).getTeam().equals("b")) {
                 g.setColor(Color.BLUE);
                 g.fillOval(countriesList.get(i).getX(), countriesList.get(i).getY(), 30, 30);
                 String cantidadA = countriesList.get(i).getSoldiers()+ "";
                 g.drawString(cantidadA, countriesList.get(i).getX(), countriesList.get(i).getY());
             }
 
-            if (countriesList.get(i).getTeam().equals("r")) {
+            if (countriesList.get(i).getTeam() != null && countriesList.get(i).getTeam().equals("r")) {
                 g.setColor(Color.RED);
                 g.fillOval(countriesList.get(i).getX(), countriesList.get(i).getY(), 30, 30);
                 String cantidadR = countriesList.get(i).getSoldiers() + "";
@@ -90,65 +74,6 @@ public class Panel extends JPanel{
             g.setColor(Color.BLACK);
             g.drawString(countriesList.get(i).getId(), countriesList.get(i).getX()+10, countriesList.get(i).getY()+18);
         }
-        
-        /*
-        Country C = new Country("C", 175, 180);
-        Country B = new Country("B", 280, 260);
-        Country A = new Country("A", 320, 410);
-        Country D = new Country("D", 410, 450);
-        Country E = new Country("E", 345, 550);
-        Country G = new Country("G", 650, 190);
-        Country I = new Country("I", 950, 160);
-        Country H = new Country("H", 830, 270);
-        Country F = new Country("F", 560, 340);
-        Country J = new Country("J", 650, 390);
-        Country K = new Country("K", 630, 490);
-        Country L = new Country("L", 970, 500);
-                A.getNeighbortList().add(C);
-        A.getNeighbortList().add(D);
-        A.getNeighbortList().add(E);
-        A.getNeighbortList().add(G);
-
-        B.getNeighbortList().add(G);
-        B.getNeighbortList().add(C);
-
-        C.getNeighbortList().add(A);
-        C.getNeighbortList().add(B);
-
-        D.getNeighbortList().add(A);
-        D.getNeighbortList().add(F);
-
-        E.getNeighbortList().add(A);
-        E.getNeighbortList().add(K);
-
-        F.getNeighbortList().add(D);
-        F.getNeighbortList().add(G);
-        F.getNeighbortList().add(J);
-        F.getNeighbortList().add(K);
-
-        G.getNeighbortList().add(A);
-        G.getNeighbortList().add(F);
-        G.getNeighbortList().add(B);
-        G.getNeighbortList().add(I);
-
-        H.getNeighbortList().add(I);
-        H.getNeighbortList().add(J);
-        H.getNeighbortList().add(L);
-
-        I.getNeighbortList().add(G);
-        I.getNeighbortList().add(H);
-
-        J.getNeighbortList().add(F);
-        J.getNeighbortList().add(H);
-        J.getNeighbortList().add(L);
-
-        K.getNeighbortList().add(E);
-        K.getNeighbortList().add(F);
-        K.getNeighbortList().add(L);
-
-        L.getNeighbortList().add(K);
-        L.getNeighbortList().add(J);
-        L.getNeighbortList().add(H);*/
     }
 
 
