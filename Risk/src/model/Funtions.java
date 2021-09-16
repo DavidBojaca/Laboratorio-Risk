@@ -2,6 +2,10 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.swing.JOptionPane;
 
 import utils.Utils;
 import view.Window;
@@ -97,8 +101,6 @@ public class Funtions {
         riskMap = new Map(countriesList);
         soldiersCreation();
         soldierDistribution();
-        machine();
-        //playerTurn("F","J" , 1 );
         updateUI();
     }
 
@@ -117,20 +119,49 @@ public class Funtions {
         int redCountries = 0;
         int rmd;
 
-
         for (int i = 0; i < riskMap.getCountriesList().size(); i++) {
-            rmd = Utils.RANDOM.nextInt(2);
-
-            if (i < 6) {
-                riskMap.getCountriesList().get(i).setTeam("b");
-                riskMap.getCountriesList().get(i).setSoldiers(8);
-                blueCountries++;
+            while (riskMap.getCountriesList().get(i).getTeam() == null) {
+                rmd = Utils.RANDOM.nextInt(2);
+                if (blueCountries < 6 && rmd == 0) {
+                    riskMap.getCountriesList().get(i).setTeam("b");
+                    riskMap.getCountriesList().get(i).setSoldiers(10);
+                    blueCountries++;
+                }
+                if (redCountries < 6 && rmd == 1) {
+                    riskMap.getCountriesList().get(i).setTeam("r");
+                    riskMap.getCountriesList().get(i).setSoldiers(10);
+                    redCountries++;
+                }
             }
-
-            if (i >= 6) {
-                riskMap.getCountriesList().get(i).setTeam("r");
-                riskMap.getCountriesList().get(i).setSoldiers(7);
-                redCountries++;
+        }
+        int rmdBlue, rmdRed, redSoldiers = 60, blueSoldiers = 60;
+        for (int i = 0; i < riskMap.getCountriesList().size(); i++) {
+            if (riskMap.getCountriesList().get(i).getTeam().equals("b") && blueSoldiers < 100) {
+                rmdBlue = Utils.RANDOM.nextInt((40)+10);
+                if (rmdBlue == 0) {
+                    rmdBlue += 1;
+                }
+                riskMap.getCountriesList().get(i).setSoldiers(rmdBlue);
+                blueSoldiers += rmdBlue;
+                
+                if (blueSoldiers > 100) {
+                    riskMap.getCountriesList().get(i).setSoldiers(blueSoldiers - 100);
+                }
+                System.out.println("Azules: " + blueSoldiers);
+                
+            }
+            if (riskMap.getCountriesList().get(i).getTeam().equals("r") && redSoldiers < 100) {
+                rmdRed = Utils.RANDOM.nextInt((40)+10);
+                if (rmdRed == 0) {
+                    rmdRed+= 1;
+                }
+                riskMap.getCountriesList().get(i).setSoldiers(rmdRed);
+                redSoldiers += rmdRed;
+                
+                if (redSoldiers > 100) {
+                    riskMap.getCountriesList().get(i).setSoldiers(redSoldiers - 100);
+                }
+                System.out.println("Red: " + redSoldiers);
             }
         }
     }
@@ -143,8 +174,8 @@ public class Funtions {
         Random luck = new Random();
 
         // si c1 tiene mas soldados que c2
-        if (c1.getSoldiers() > c2.getSoldiers()) {
-            if (luck.nextInt(battleSoldiers) >= c2.getSoldiers()) {
+        if (c1.getSoldiers() >= c2.getSoldiers()) {
+            if (luck.nextInt(battleSoldiers) > c2.getSoldiers()) {
 
                 for (int i = 0; i < c2.getSoldiers(); i++) {
                     if (c2.getTeam().equals("r")) {
@@ -154,6 +185,11 @@ public class Funtions {
                         blueGlobal = blueGlobal - 1;
                         System.out.println("Ganaron rojos");
                     }
+                }
+                if (c2.getTeam().equals("r")) {
+                    JOptionPane.showMessageDialog(null, "Domino el equipo Azul en"+c2.getId());
+                }else{
+                    JOptionPane.showMessageDialog(null, "Domino el equipo rojo en"+c2.getId());
                 }
                 c2.setSoldiers(0);
                 soldierMove(c2, c1);
@@ -168,14 +204,16 @@ public class Funtions {
                         System.out.println("Ganaron rojos");
                     }
                 }
+                if (c1.getTeam().equals("r")) {
+                    JOptionPane.showMessageDialog(null, "Domino el equipo Azul en:"+c1.getId());
+                }else{
+                    JOptionPane.showMessageDialog(null, "Domino el equipo rojo en: "+c1.getId());
+                }
                 c1.setSoldiers(0);
                 soldierMove(c1, c2);
             }
-        }
-
-        // si c2 tiene más soldados que c1
-        if (c2.getSoldiers() > c1.getSoldiers()) {
-            if (luck.nextInt(battleSoldiers) >= c1.getSoldiers()) {
+        }else if (c2.getSoldiers() >= c1.getSoldiers()) {
+            if (luck.nextInt(battleSoldiers) > c1.getSoldiers()) {
 
                 for (int i = 0; i < c1.getSoldiers(); i++) {
                     if (c1.getTeam().equals("r")) {
@@ -185,6 +223,11 @@ public class Funtions {
                         blueGlobal = blueGlobal - 1;
                         System.out.println("Ganaron rojos");
                     }
+                }
+                if (c1.getTeam().equals("r")) {
+                    JOptionPane.showMessageDialog(null, "Domino el equipo Azul en: "+c1.getId());
+                }else{
+                    JOptionPane.showMessageDialog(null, "Domino el equipo rojo en: "+c1.getId());
                 }
                 c1.setSoldiers(0);
                 soldierMove(c1, c2);
@@ -198,6 +241,11 @@ public class Funtions {
                         blueGlobal = blueGlobal - 1;
                         System.out.println("Ganaron rojos");
                     }
+                }
+                if (c2.getTeam().equals("r")) {
+                    JOptionPane.showMessageDialog(null, "Domino el equipo Azul en: "+c2.getId());
+                }else{
+                    JOptionPane.showMessageDialog(null, "Domino el equipo rojo en: "+c2.getId());
                 }
                 c2.setSoldiers(0);
                 soldierMove(c2, c1);
@@ -206,13 +254,13 @@ public class Funtions {
     }
 
     public void soldierMove(Country loser, Country winner) {
-
+        Random rmd = new Random(); 
         if (quantityMove <= winner.getSoldiers() - 1) {
             loser.setTeam(winner.getTeam());
             loser.setSoldiers(quantityMove);
             winner.setSoldiers(winner.getSoldiers() - quantityMove);
         } else {
-            setQuantityMove(0);
+            setQuantityMove(rmd.nextInt(winner.getSoldiers()-1)+1);
             soldierMove(loser, winner);
         }
     }
@@ -244,7 +292,7 @@ public class Funtions {
         mostSoldiers = machinePosibility.get(0);
 
         for (int i = 0; i < machinePosibility.size(); i++) {
-            if (machinePosibility.get(i).getSoldiers() >= mostSoldiers.getSoldiers()) {
+            if (machinePosibility.get(i).getSoldiers() > mostSoldiers.getSoldiers()) {
                 mostSoldiers = machinePosibility.get(i);
             }
 
@@ -252,7 +300,7 @@ public class Funtions {
 
         for (int i = 0; i < mostSoldiers.getNeighbortList().size(); i++) {
             if (mostSoldiers.getNeighbortList().get(i).getSoldiers() != 0) {
-                setQuantityMove(rmdMachine.nextInt(mostSoldiers.getSoldiers() - 2) + 1);
+                setQuantityMove(rmdMachine.nextInt(mostSoldiers.getSoldiers()-1)+1);
                 attack(mostSoldiers, mostSoldiers.getNeighbortList().get(i));
                 System.out.println("juego de maquina");
                 break;
@@ -279,8 +327,25 @@ public class Funtions {
         }
 
         attack(c1, c2);
-        machine();
+        //machineTurn();
+        results();
+        updateUI();
     }
+    public void machineTurn() {
+        machine();
+    
+    }
+
+    private void results(){
+        if (riskMap.getBlueSoldiers()==0&&riskMap.getRedSoldiers()!=0) {
+            JOptionPane.showMessageDialog(null, "Gano el equipo rojo");
+        }
+        if (riskMap.getRedSoldiers()==0&&riskMap.getBlueSoldiers()!=0) {
+            JOptionPane.showMessageDialog(null, "Gano el equipo Azul");
+        }
+        
+    }
+
 
     
 }
