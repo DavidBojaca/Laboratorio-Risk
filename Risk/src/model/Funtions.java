@@ -285,16 +285,29 @@ public class Funtions {
 
     }
 
-    public void playerTurn(Country c1, Country c2, int quantity) {
+    public void playerTurn(String country1, String country2, int quantity) {
+        Country c1;
+        Country c2;
+
+
+        for (int i = 0; i < riskMap.getCountriesList().size(); i++) {
+            if (riskMap.getCountriesList().get(i).getId().equals(country1)) {
+                c1=riskMap.getCountriesList().get(i);
+            }
+            if (riskMap.getCountriesList().get(i).getId().equals(country2)) {
+                c2=riskMap.getCountriesList().get(i);
+            }
+        }
         setQuantityMove(quantity);
         attack(c1, c2);
-        
-    }
 
-    public void machineTurn() {
         machine();
 
     }
+        
+    
+
+    
 
     public void stardGame(){
         soldiersCreation();
