@@ -96,8 +96,9 @@ public class Funtions {
         System.out.println(countriesList.size());
         riskMap = new Map(countriesList);
         soldiersCreation();
-        //soldierDistribution();
-        //playerTurn("A","L" , 4 );
+        soldierDistribution();
+        machine();
+        //playerTurn("F","J" , 1 );
         updateUI();
     }
 
@@ -128,7 +129,7 @@ public class Funtions {
 
             if (i >= 6) {
                 riskMap.getCountriesList().get(i).setTeam("r");
-                riskMap.getCountriesList().get(i).setSoldiers(8);
+                riskMap.getCountriesList().get(i).setSoldiers(7);
                 redCountries++;
             }
         }
@@ -143,13 +144,15 @@ public class Funtions {
 
         // si c1 tiene mas soldados que c2
         if (c1.getSoldiers() > c2.getSoldiers()) {
-            if (luck.nextInt(battleSoldiers) > c2.getSoldiers()) {
+            if (luck.nextInt(battleSoldiers) >= c2.getSoldiers()) {
 
                 for (int i = 0; i < c2.getSoldiers(); i++) {
                     if (c2.getTeam().equals("r")) {
                         redGlobal = redGlobal - 1;
+                        System.out.println("Ganaron azules");
                     } else {
                         blueGlobal = blueGlobal - 1;
+                        System.out.println("Ganaron rojos");
                     }
                 }
                 c2.setSoldiers(0);
@@ -159,8 +162,10 @@ public class Funtions {
                 for (int i = 0; i < c1.getSoldiers(); i++) {
                     if (c1.getTeam().equals("r")) {
                         redGlobal = redGlobal - 1;
+                        System.out.println("Ganaron azules");
                     } else {
                         blueGlobal = blueGlobal - 1;
+                        System.out.println("Ganaron rojos");
                     }
                 }
                 c1.setSoldiers(0);
@@ -170,13 +175,15 @@ public class Funtions {
 
         // si c2 tiene más soldados que c1
         if (c2.getSoldiers() > c1.getSoldiers()) {
-            if (luck.nextInt(battleSoldiers) > c1.getSoldiers()) {
+            if (luck.nextInt(battleSoldiers) >= c1.getSoldiers()) {
 
                 for (int i = 0; i < c1.getSoldiers(); i++) {
                     if (c1.getTeam().equals("r")) {
                         redGlobal = redGlobal - 1;
+                        System.out.println("Ganaron azules");
                     } else {
                         blueGlobal = blueGlobal - 1;
+                        System.out.println("Ganaron rojos");
                     }
                 }
                 c1.setSoldiers(0);
@@ -186,8 +193,10 @@ public class Funtions {
                 for (int i = 0; i < c2.getSoldiers(); i++) {
                     if (c2.getTeam().equals("r")) {
                         redGlobal = redGlobal - 1;
+                        System.out.println("Ganaron azules");
                     } else {
                         blueGlobal = blueGlobal - 1;
+                        System.out.println("Ganaron rojos");
                     }
                 }
                 c2.setSoldiers(0);
@@ -223,8 +232,7 @@ public class Funtions {
 
         for (int i = 0; i < machineCountries.size(); i++) {
             for (int j = 0; j < machineCountries.get(i).getNeighbortList().size(); j++) {
-                if (machineCountries.get(i).getNeighbortList().get(j).getTeam().equals("r")
-                        && machineCountries.get(i).isState() == false) {
+                if (machineCountries.get(i).getNeighbortList().get(j).getTeam().equals("r")&& machineCountries.get(i).isState() == false) {
                     machinePosibility.add(machineCountries.get(i));
                     machineCountries.get(i).setState(true);
                 }
@@ -236,7 +244,7 @@ public class Funtions {
         mostSoldiers = machinePosibility.get(0);
 
         for (int i = 0; i < machinePosibility.size(); i++) {
-            if (machinePosibility.get(i).getSoldiers() > mostSoldiers.getSoldiers()) {
+            if (machinePosibility.get(i).getSoldiers() >= mostSoldiers.getSoldiers()) {
                 mostSoldiers = machinePosibility.get(i);
             }
 
@@ -244,9 +252,9 @@ public class Funtions {
 
         for (int i = 0; i < mostSoldiers.getNeighbortList().size(); i++) {
             if (mostSoldiers.getNeighbortList().get(i).getSoldiers() != 0) {
-                setQuantityMove(rmdMachine.nextInt(mostSoldiers.getSoldiers() - 1) + 1);
+                setQuantityMove(rmdMachine.nextInt(mostSoldiers.getSoldiers() - 2) + 1);
                 attack(mostSoldiers, mostSoldiers.getNeighbortList().get(i));
-
+                System.out.println("juego de maquina");
                 break;
             }
         }
@@ -255,9 +263,6 @@ public class Funtions {
     public void playerTurn(String country1, String country2, int quantity) {
         Country c1= null;
         Country c2= null;
-
-
-
 
         for (int i = 0; i < riskMap.getCountriesList().size(); i++) {
             if (riskMap.getCountriesList().get(i).getId().equals(country1)) {
