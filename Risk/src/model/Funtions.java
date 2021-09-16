@@ -115,20 +115,49 @@ public class Funtions {
         int redCountries = 0;
         int rmd;
 
-
         for (int i = 0; i < riskMap.getCountriesList().size(); i++) {
-            rmd = Utils.RANDOM.nextInt(2);
-
-            if (i < 6) {
-                riskMap.getCountriesList().get(i).setTeam("b");
-                riskMap.getCountriesList().get(i).setSoldiers(8);
-                blueCountries++;
+            while (riskMap.getCountriesList().get(i).getTeam() == null) {
+                rmd = Utils.RANDOM.nextInt(2);
+                if (blueCountries < 6 && rmd == 0) {
+                    riskMap.getCountriesList().get(i).setTeam("b");
+                    riskMap.getCountriesList().get(i).setSoldiers(2);
+                    blueCountries++;
+                }
+                if (redCountries < 6 && rmd == 1) {
+                    riskMap.getCountriesList().get(i).setTeam("r");
+                    riskMap.getCountriesList().get(i).setSoldiers(2);
+                    redCountries++;
+                }
             }
-
-            if (i >= 6) {
-                riskMap.getCountriesList().get(i).setTeam("r");
-                riskMap.getCountriesList().get(i).setSoldiers(8);
-                redCountries++;
+        }
+        int rmdBlue, rmdRed, redSoldiers = 12, blueSoldiers = 12;
+        for (int i = 0; i < riskMap.getCountriesList().size(); i++) {
+            if (riskMap.getCountriesList().get(i).getTeam().equals("b") && blueSoldiers < 48) {
+                rmdBlue = Utils.RANDOM.nextInt((30 -10)+1);
+                if (rmdBlue == 0) {
+                    rmdBlue += 1;
+                }
+                riskMap.getCountriesList().get(i).setSoldiers(rmdBlue);
+                blueSoldiers += rmdBlue;
+                
+                if (blueSoldiers > 48) {
+                    riskMap.getCountriesList().get(i).setSoldiers(blueSoldiers - 48);
+                }
+                System.out.println("Azules: " + blueSoldiers);
+                
+            }
+            if (riskMap.getCountriesList().get(i).getTeam().equals("r") && redSoldiers < 48) {
+                rmdRed = Utils.RANDOM.nextInt((30 -10)+1);
+                if (rmdRed == 0) {
+                    rmdRed+= 1;
+                }
+                riskMap.getCountriesList().get(i).setSoldiers(rmdRed);
+                redSoldiers += rmdRed;
+                
+                if (redSoldiers > 48) {
+                    riskMap.getCountriesList().get(i).setSoldiers(redSoldiers - 48);
+                }
+                System.out.println("Red: " + redSoldiers);
             }
         }
     }
@@ -205,6 +234,7 @@ public class Funtions {
             setQuantityMove(0);
             soldierMove(loser, winner);
         }
+
     }
 
     public void machine() {
@@ -243,7 +273,7 @@ public class Funtions {
 
         for (int i = 0; i < mostSoldiers.getNeighbortList().size(); i++) {
             if (mostSoldiers.getNeighbortList().get(i).getSoldiers() != 0) {
-                setQuantityMove(rmdMachine.nextInt(mostSoldiers.getSoldiers() - 1) + 1);
+                setQuantityMove(rmdMachine.nextInt(mostSoldiers.getSoldiers() - 2) + 1);
                 attack(mostSoldiers, mostSoldiers.getNeighbortList().get(i));
 
                 break;
@@ -251,10 +281,29 @@ public class Funtions {
         }
     }
 
-    public void playerTurn(Country c1, Country c2, int quantity) {
+    public void playerTurn(String country1, String country2, int quantity) {
+        Country c1= null;
+        Country c2= null;
+        
+        for (int i = 0; i < riskMap.getCountriesList().size(); i++) {
+            if (riskMap.getCountriesList().get(i).getId().equals(country1)) {
+                c1=riskMap.getCountriesList().get(i);
+            }
+            if (riskMap.getCountriesList().get(i).getId().equals(country2)) {
+                c2=riskMap.getCountriesList().get(i);
+            }
+        }
         setQuantityMove(quantity);
+        
+        if (c1.getTeam().equals(c2.getTeam())) {
+            
+        }
+
         attack(c1, c2);
+        machine();
+        updateUI();
     }
+    
 
     public void machineTurn() {
         machine();
